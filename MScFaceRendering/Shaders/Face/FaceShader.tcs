@@ -1,0 +1,120 @@
+#version 400
+ 
+
+#define OUTPUT_CP 3 // Is a triangle
+#define NORMAL_MAP 1
+#define DISTANCE_BASED 0 
+#define SHADOW 1
+
+// define the number of CPs in the output patch 
+layout (vertices = OUTPUT_CP) out; 
+
+#if DISTANCE_BASED == 1
+// These values are written by the application according to the user input. 
+// The ones here are default values. 
+const float stepDistances [2] = float[](1.5, 3.0);
+const float stepTL [3] = float[](10.0,7.0,3.0);
+
+uniform vec3 cameraPosition;
+#endif
+
+#if DISTANCE_BASED == 0 
+// The tessellation levels are fixed. 
+uniform float TLInner;
+uniform float TLOuter;
+#endif
+
+// attributes of the input CPs 
+in vec3 worldSpacePosition_CS[];
+in vec2 vTextureCoordinate_CS[];
+
+#if NORMAL_MAP == 1 
+in vec3 t_CS[];
+in vec3 n_CS[];
+in vec3 b_CS[];
+#else
+in vec3 vVertexNormal_CS[];
+#endif 
+
+// attributes of the output CPs 
+out vec3 worldSpacePosition_ES[]; 
+out vec2 vTextureCoordinate_ES[]; 
+
+// Outputs to Tessellation Evaluation Shader
+#if NORMAL_MAP == 1
+out vec3 t_ES[];
+out vec3 n_ES[];
+out vec3 b_ES[];
+#else
+out vec3 vVertexNormal_ES[];
+#endif
+
+#if SHADOW == 1
+in vec4 shadowCoordinates_CS[];
+out vec4 shadowCoordinates_ES[];
+#endif
+
+in vec3 V_CS[];
+out vec3 V_ES[];
+
+
+// Establish which Tessellation Level among the one defined by the user use according to 
+// the distance to "eye". 
+#if DISTANCE_BASED == 1
+float distanceTL( float eyeToVertex1, float eyeToVertex2 ){
+
+float meanDistance = (eyeToVertex1 + eyeToVertex2) / 2.0;
+if(meanDistance < stepDistances[0])
+return stepTL[0];
+else if(meanDistance < stepDistances[1])
+return stepTL[1];
+else
+return stepTL[2];
+}
+#endif
+
+void main(){ 
+
+ // Set the control points of the output patch 
+ vTextureCoordinate_ES[gl_InvocationID] = vTextureCoordinate_CS[gl_InvocationID]; 
+ worldSpacePosition_ES[gl_InvocationID] = worldSpacePosition_CS[gl_InvocationID]; 
+#if NORMAL_MAP == 1
+// Tangent basis to TES
+ n_ES[gl_InvocationID] = n_CS[gl_InvocationID]; 
+ b_ES[gl_InvocationID] = b_CS[gl_InvocationID]; 
+ t_ES[gl_InvocationID] = t_CS[gl_InvocationID]; 
+#else
+ vVertexNormal_ES[gl_InvocationID] = vVertexNormal_CS[gl_InvocationID]; 
+#endif
+
+ V_ES[gl_InvocationID] = V_CS[gl_InvocationID];
+
+
+ // Calculate the tessellation levels 
+ #if DISTANCE_BASED == 1
+
+// Vertices to eye
+float v0toE = distance(cameraPosition, worldSpacePosition_CS[0]);
+float v1toE = distance(cameraPosition, worldSpacePosition_CS[1]);
+float v2toE = distance(cameraPosition, worldSpacePosition_CS[2]);
+
+// roughly the segment per edge
+gl_TessLevelOuter[0] = distanceTL(v1toE, v2toE);
+gl_TessLevelOuter[1] = distanceTL(v2toE, v0toE);
+gl_TessLevelOuter[2] = distanceTL(v0toE, v1toE);
+// How many rings the triangle will have
+gl_TessLevelInner[0] = gl_TessLevelOuter[2];
+
+ #else 
+ // roughly the segment per edge
+ gl_TessLevelOuter[0] = TLOuter; 
+ gl_TessLevelOuter[1] = TLOuter; 
+ gl_TessLevelOuter[2] = TLOuter; 
+ // How many rings the triangle will have
+ gl_TessLevelInner[0] = TLInner; 
+ #endif 
+
+ #if SHADOW == 1
+ shadowCoordinates_ES[gl_InvocationID] = shadowCoordinates_CS[gl_InvocationID];
+ #endif
+} 

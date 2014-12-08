@@ -1,0 +1,102 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MScFaceRendering", "MScFaceRendering\MScFaceRendering.vcxproj", "{0144CD18-CA73-4732-95BA-DA193F57B4F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{03713CC9-7B46-4FE4-9B54-6237801AA8F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Face", "Face", "{7D46EC3C-2E53-478B-A377-F8F209AD6D93}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Shaders\Face\FaceShader.frag = MScFaceRendering\Shaders\Face\FaceShader.frag
+		MScFaceRendering\Shaders\Face\FaceShader.tcs = MScFaceRendering\Shaders\Face\FaceShader.tcs
+		MScFaceRendering\Shaders\Face\FaceShader.tes = MScFaceRendering\Shaders\Face\FaceShader.tes
+		MScFaceRendering\Shaders\Face\FaceShader.vert = MScFaceRendering\Shaders\Face\FaceShader.vert
+		MScFaceRendering\Shaders\Face\FaceShaderTess.vert = MScFaceRendering\Shaders\Face\FaceShaderTess.vert
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PostProcessing", "PostProcessing", "{A72336F2-469A-4A01-801F-96AC0E698A88}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Shaders\PostProcessing\passThrough.vert = MScFaceRendering\Shaders\PostProcessing\passThrough.vert
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HDR", "HDR", "{F5E858DB-E011-48B6-870B-86C698A20E07}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Shaders\PostProcessing\HDR\toneMapping.frag = MScFaceRendering\Shaders\PostProcessing\HDR\toneMapping.frag
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSSSS", "SSSSS", "{B91FF49E-5961-44B1-A77F-04A3A7920FF8}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Shaders\PostProcessing\SSSSS\mySSSSS.frag = MScFaceRendering\Shaders\PostProcessing\SSSSS\mySSSSS.frag
+		MScFaceRendering\Shaders\PostProcessing\SSSSS\SSSSSBlur_Jim.frag = MScFaceRendering\Shaders\PostProcessing\SSSSS\SSSSSBlur_Jim.frag
+		MScFaceRendering\Shaders\PostProcessing\SSSSS\SSSSSCombiner.frag = MScFaceRendering\Shaders\PostProcessing\SSSSS\SSSSSCombiner.frag
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GaussianBlur", "GaussianBlur", "{D9705307-F0FD-4854-8D87-0FEA1FC0469E}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Shaders\PostProcessing\GaussianBlur\gaussBlur.frag = MScFaceRendering\Shaders\PostProcessing\GaussianBlur\gaussBlur.frag
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shadows", "Shadows", "{86CA8602-807E-4FDA-9FC0-18473FB63D14}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Shaders\Shadows\shadowMap.frag = MScFaceRendering\Shaders\Shadows\shadowMap.frag
+		MScFaceRendering\Shaders\Shadows\shadowMap.vert = MScFaceRendering\Shaders\Shadows\shadowMap.vert
+		MScFaceRendering\Shaders\Shadows\VSMShadowMap.frag = MScFaceRendering\Shaders\Shadows\VSMShadowMap.frag
+		MScFaceRendering\Shaders\Shadows\VSMShadowMap.vert = MScFaceRendering\Shaders\Shadows\VSMShadowMap.vert
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Textures", "Textures", "{4A22AA20-3BEF-4849-83C6-73DAD56BC1D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnvPresets", "EnvPresets", "{000DE193-4304-40CF-BA42-DF2C47164B11}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\EnvPresets\preSetGalileo3108_128.txt = MScFaceRendering\EnvPresets\preSetGalileo3108_128.txt
+		MScFaceRendering\EnvPresets\preSetGalileo3108_16.txt = MScFaceRendering\EnvPresets\preSetGalileo3108_16.txt
+		MScFaceRendering\EnvPresets\preSetGalileo3108_32.txt = MScFaceRendering\EnvPresets\preSetGalileo3108_32.txt
+		MScFaceRendering\EnvPresets\preSetGalileo3108_8.txt = MScFaceRendering\EnvPresets\preSetGalileo3108_8.txt
+		MScFaceRendering\EnvPresets\preSetGlacier3108_32.txt = MScFaceRendering\EnvPresets\preSetGlacier3108_32.txt
+		MScFaceRendering\EnvPresets\preSetGrace3108_16.txt = MScFaceRendering\EnvPresets\preSetGrace3108_16.txt
+		MScFaceRendering\EnvPresets\preSetGrace3108_32.txt = MScFaceRendering\EnvPresets\preSetGrace3108_32.txt
+		MScFaceRendering\EnvPresets\preSetGrace3108_64.txt = MScFaceRendering\EnvPresets\preSetGrace3108_64.txt
+		MScFaceRendering\EnvPresets\preSetPisa3108_32.txt = MScFaceRendering\EnvPresets\preSetPisa3108_32.txt
+		MScFaceRendering\EnvPresets\preSetPisa3108_8.txt = MScFaceRendering\EnvPresets\preSetPisa3108_8.txt
+		MScFaceRendering\EnvPresets\preSetRNL3108_32.txt = MScFaceRendering\EnvPresets\preSetRNL3108_32.txt
+		MScFaceRendering\EnvPresets\preSetRNL3108_64.txt = MScFaceRendering\EnvPresets\preSetRNL3108_64.txt
+		MScFaceRendering\EnvPresets\preSetRNL3108_8.txt = MScFaceRendering\EnvPresets\preSetRNL3108_8.txt
+		MScFaceRendering\EnvPresets\preSetStPeter3108_16.txt = MScFaceRendering\EnvPresets\preSetStPeter3108_16.txt
+		MScFaceRendering\EnvPresets\preSetStPeter3108_32.txt = MScFaceRendering\EnvPresets\preSetStPeter3108_32.txt
+		MScFaceRendering\EnvPresets\preSetStPeter3108_64.txt = MScFaceRendering\EnvPresets\preSetStPeter3108_64.txt
+		MScFaceRendering\EnvPresets\preSetStPeter3108_8.txt = MScFaceRendering\EnvPresets\preSetStPeter3108_8.txt
+		MScFaceRendering\EnvPresets\preSetUffizi3108_16.txt = MScFaceRendering\EnvPresets\preSetUffizi3108_16.txt
+		MScFaceRendering\EnvPresets\preSetUffizi3108_32.txt = MScFaceRendering\EnvPresets\preSetUffizi3108_32.txt
+		MScFaceRendering\EnvPresets\preSetUffizi3108_64.txt = MScFaceRendering\EnvPresets\preSetUffizi3108_64.txt
+		MScFaceRendering\EnvPresets\preSetUffizi3108_8.txt = MScFaceRendering\EnvPresets\preSetUffizi3108_8.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{8480F872-E404-4B92-953F-2641DBCFF553}"
+	ProjectSection(SolutionItems) = preProject
+		MScFaceRendering\Models\head.obj = MScFaceRendering\Models\head.obj
+		MScFaceRendering\Models\sphere.obj = MScFaceRendering\Models\sphere.obj
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0144CD18-CA73-4732-95BA-DA193F57B4F4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0144CD18-CA73-4732-95BA-DA193F57B4F4}.Debug|Win32.Build.0 = Debug|Win32
+		{0144CD18-CA73-4732-95BA-DA193F57B4F4}.Release|Win32.ActiveCfg = Release|Win32
+		{0144CD18-CA73-4732-95BA-DA193F57B4F4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7D46EC3C-2E53-478B-A377-F8F209AD6D93} = {03713CC9-7B46-4FE4-9B54-6237801AA8F7}
+		{A72336F2-469A-4A01-801F-96AC0E698A88} = {03713CC9-7B46-4FE4-9B54-6237801AA8F7}
+		{86CA8602-807E-4FDA-9FC0-18473FB63D14} = {03713CC9-7B46-4FE4-9B54-6237801AA8F7}
+		{F5E858DB-E011-48B6-870B-86C698A20E07} = {A72336F2-469A-4A01-801F-96AC0E698A88}
+		{B91FF49E-5961-44B1-A77F-04A3A7920FF8} = {A72336F2-469A-4A01-801F-96AC0E698A88}
+		{D9705307-F0FD-4854-8D87-0FEA1FC0469E} = {A72336F2-469A-4A01-801F-96AC0E698A88}
+	EndGlobalSection
+EndGlobal
