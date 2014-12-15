@@ -2,7 +2,9 @@
 
 /**********************************
 * 		SSSSS Blur Y			  *
-*								  *
+* Note: Use the mySSSSS.frag shader instead. Here passes are
+* separated in case two separate shader program are desired, but
+* I can't really see an actual usage of these over mySSSSS.frag
 ***********************************/
 
 // Todo: better commnets
