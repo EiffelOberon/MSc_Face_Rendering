@@ -71,8 +71,8 @@ vec3 getDirection(vec3 objCentral, float  centralDepth){
 	vec3 perpDir = normalize(yVec - dot(yVec, xVec) * xVec);
 
         // Transform back to screen space a point from obj space taken in the new directio.
-	mat4 vpMatrix = inverse(invMVP);         // Evaluate passing directly MVP. 
-	vec3 tapObj = objCentral + dist*perpDir;
+	mat4 mvpMatrix = inverse(invMVP);         // Evaluate passing directly MVP. 
+	vec3 tapObj = objCentral + dist*perpDir;	// Take the obj-space point in the new direction, distant "dist", from the central point
 
         
 	vec4 screenSpacePoint = vpMatrix*vec4(tapObj,1.0);
