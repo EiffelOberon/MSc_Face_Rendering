@@ -1,8 +1,10 @@
 #version 330
 
 /**********************************
-* 		SSSSS Blur                *
-*								  *
+* 		SSSSS Blur		
+*					  
+*	This is the Jorge Jimenez work 
+*								  
 ***********************************/
 
 // from vertex shader

@@ -4,6 +4,7 @@ in vec4 vPosition;
 out vec4 fragmentColor;
 
 // Partial reference: http://http.developer.nvidia.com/GPUGems3/gpugems3_ch08.html
+// And:				  http://fabiensanglard.net/shadowmappingVSM/
 
 void main(void){
 	float depth = vPosition.z / vPosition.w;

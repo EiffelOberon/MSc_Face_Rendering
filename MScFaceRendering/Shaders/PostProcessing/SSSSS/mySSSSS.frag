@@ -5,7 +5,6 @@
 *								  *
 ***********************************/
 
-// Todo: better commnets
 
 // from vertex shader
 in vec2 vTextureCoordinate;
@@ -27,16 +26,16 @@ uniform mat4 invMVP;
 
 out vec4 fragmentColour;
 
-
+// Convert screen space to obj space
 vec3 getObjectCoord(vec2 uv, float depth){
-
 	vec3 ndc = 2.0*vec3(uv,depth) - 1.0;
 	vec4 objSpace = invMVP * vec4(ndc,1.0);
 	objSpace = objSpace / objSpace.w;
 	return objSpace.xyz;
 }
 
-
+// Get distance between the object space point corresponding to central sample
+// and the one that in screen space is distant "offset" from the central sample
 float getDist(vec3 objCentral, vec2 offset){
 	vec2 tapUV = vTextureCoordinate + offset;
 	float tapDepth = texture(depthTexture, tapUV).r;
@@ -47,37 +46,41 @@ float getDist(vec3 objCentral, vec2 offset){
 }
 
 
-vec3 getDirection(vec3 objCentral){
+// Get a direction in screen space such as the corresponding vector is perpendicular in object
+// space to the one used for the first blur pass (i.e. X direction in screen space).
+// This is achieved via Gram-Schmidt
+vec3 getDirection(vec3 objCentral, float  centralDepth){
 
+        
 	vec2 xTap = vTextureCoordinate + vec2(1.0,0.0)*pixelSizes.x;	
 	vec2 yTap = vTextureCoordinate + vec2(0.0,1.0)*pixelSizes.y;
 	float yDepth = texture(depthTexture, yTap);
 	float xDepth = texture(depthTexture, xTap);
-
+	
+	
 	vec3 yObj = getObjectCoord(yTap, yDepth);
 	vec3 xObj = getObjectCoord(xTap, xDepth);
 
+	// Forward differences in obj space
 	vec3 xVec = normalize(xObj  - objCentral);
-	vec3 yVec = normalize(yObj - objCentral);
+	vec3 yVec = (yObj - objCentral);
+	float dist = length(yVec);
+	yVec = normalize(yVec);
 
+	// Gram-Schmidt
 	vec3 perpDir = normalize(yVec - dot(yVec, xVec) * xVec);
 
-	mat4 vpMatrix = inverse(invMVP);
+        // Transform back to screen space a point from obj space taken in the new directio.
+	mat4 vpMatrix = inverse(invMVP);         // Evaluate passing directly MVP. 
+	vec3 tapObj = objCentral + dist*perpDir;
 
+        
+	vec4 screenSpacePoint = vpMatrix*vec4(tapObj,1.0);
+	vec3 projPoint = screenSpacePoint.xyz/screenSpacePoint.w;
+	vec3 newPos = 0.5 + projPoint*0.5;
 
-	float tapDepth = texture(depthTexture, yTap).r;
-	vec3 tapObj = getObjectCoord(yTap, tapDepth);
-	float dist = length(tapObj - objCentral);
-	vec3 step_ = normalize(tapObj - objCentral);
-	vec3 otherTest = objCentral + dist*step_;	
-	tapObj = objCentral + dist*perpDir;
-
-
-	vec4 test = vpMatrix*vec4(tapObj,1.0);
-	vec3 projTest = test.xyz/test.w;
-	vec3 outTest = 0.5 + projTest*0.5;
-
-return (outTest - vec3(vTextureCoordinate, texture(depthTexture, vTextureCoordinate)));
+	// Get direction in screen space
+	return (newPos - vec3(vTextureCoordinate, centralDepth));
 
 
 }
@@ -97,7 +100,7 @@ void main(void){
 
 	vec2 newStep;  
 	if(direction.y == 1.0){		// i.e. is the second pass. Previously was another shader. 
-		vec2 correctedDir = getDirection(centralObjSpace).xy;
+		vec2 correctedDir = getDirection(centralObjSpace, centralDepth).xy;
 		newStep = correctedDir * stepSize;
 	}else{
 		newStep = pixelSizes * direction * stepSize;  

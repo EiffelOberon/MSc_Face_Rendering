@@ -2,7 +2,7 @@
 
 
 #define SAMPLE_NUMBER 7
-#define PIXELSIZE
+#define PIXELSIZE						// It will be fill in the phase of shader generation
 
 in vec2 vTextureCoordinate;
 

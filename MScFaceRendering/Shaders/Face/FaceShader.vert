@@ -49,8 +49,6 @@ uniform mat4 depthVP;
 #endif
 
 
-out vec3 test;
-
 void main(void){
 
 	#if NORMAL_MAP == 1
